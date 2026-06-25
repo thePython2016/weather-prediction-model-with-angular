@@ -1,0 +1,117 @@
+<div class="card">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div>
+      <img src="logo.png" alt="Logo" class="profile-page-logo" />
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider-v"></div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <!-- Success message -->
+    <div class="success-msg" *ngIf="successMessage">
+      {{ successMessage }} <a routerLink="/signin">Login</a>
+    </div>
+
+    <h1 class="form-title">Create an account</h1>
+    <p class="form-sub">Fill in your details below to get started.</p>
+
+    <!-- Name row -->
+    <div class="row-2">
+      <div class="field-wrap">
+        <label class="field-label">First name</label>
+        <p class="field-error" *ngIf="fnameError">{{ fnameError }}</p>
+        <div class="input-row">
+          <input type="text" [(ngModel)]="fname" placeholder="John" />
+        </div>
+      </div>
+      <div class="field-wrap">
+        <label class="field-label">Last name</label>
+        <p class="field-error" *ngIf="lnameError">{{ lnameError }}</p>
+        <div class="input-row">
+          <input type="text" [(ngModel)]="lname" placeholder="Doe" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="field-wrap">
+      <label class="field-label">Email</label>
+      <p class="field-error" *ngIf="emailError">{{ emailError }}</p>
+      <div class="input-row">
+        <input type="email" [(ngModel)]="email" placeholder="hello@example.com" />
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="field-wrap">
+      <label class="field-label">Phone number</label>
+      <p class="field-error" *ngIf="phoneError">{{ phoneError }}</p>
+      <div class="input-row">
+        <input type="tel" [(ngModel)]="phone" placeholder="+255 700 000 000" />
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="field-wrap">
+      <label class="field-label">Address</label>
+      <p class="field-error" *ngIf="addressError">{{ addressError }}</p>
+      <div class="input-row">
+        <input type="text" [(ngModel)]="address" placeholder="123 Main St, Mwanza" />
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="field-wrap">
+      <label class="field-label">Password</label>
+      <p class="field-error" *ngIf="passwordError">{{ passwordError }}</p>
+      <div class="input-row">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          placeholder="Min. 8 characters"
+          (input)="checkPassword()" />
+        <button type="button" class="eye-btn" (click)="togglePassword()" aria-label="Toggle password">
+          <i class="ti" [class.ti-eye]="!showPassword" [class.ti-eye-off]="showPassword"></i>
+        </button>
+      </div>
+      <p class="hint" *ngIf="passwordHint" [class.ok]="passwordHintType === 'ok'" [class.err]="passwordHintType === 'err'">
+        {{ passwordHint }}
+      </p>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="field-wrap">
+      <label class="field-label">Confirm password</label>
+      <p class="field-error" *ngIf="confirmPasswordError">{{ confirmPasswordError }}</p>
+      <div class="input-row">
+        <input
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          [(ngModel)]="confirmPassword"
+          placeholder="Repeat your password"
+          (input)="checkMatch()" />
+        <button type="button" class="eye-btn" (click)="toggleConfirmPassword()" aria-label="Toggle confirm password">
+          <i class="ti" [class.ti-eye]="!showConfirmPassword" [class.ti-eye-off]="showConfirmPassword"></i>
+        </button>
+      </div>
+      <p class="hint" *ngIf="matchHint" [class.ok]="matchHintType === 'ok'" [class.err]="matchHintType === 'err'">
+        {{ matchHint }}
+      </p>
+    </div>
+
+    <button class="submit-btn" (click)="register()">Create account</button>
+
+    <!-- <div class="success-msg" *ngIf="successMessage">
+   {{ successMessage }} <a routerLink="/signin">Click here to Login</a>
+</div> -->
+
+    <p class="login-row">Already have an account? <a routerLink="/signin">Sign in</a></p>
+
+  </div>
+
+</div>

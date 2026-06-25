@@ -1,0 +1,35 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  height: 100vh;
+  transition: grid-template-columns 0.25s ease;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: #F8F8FC;
+  color: #1A1830;
+  margin: 0;
+  padding: 0;
+}
+
+.app-layout.sidebar-collapsed {
+  grid-template-columns: 72px 1fr;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-y: auto;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

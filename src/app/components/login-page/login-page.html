@@ -1,0 +1,64 @@
+<div class="card">
+
+  <div class="left">
+    <img src="logo.png" alt="Logo" class="profile-page-logo" />
+  </div>
+
+  <div class="divider-v"></div>
+
+  <div class="right">
+    <h1 class="form-title">Welcome Back!</h1>
+    <p class="form-sub">Sign in to continue with your account.</p>
+
+    <p class="server-error" *ngIf="userError">{{ userError }}</p>
+    <p class="server-error" *ngIf="serverError">{{ serverError }}</p>
+
+    <!-- Email -->
+    <div class="field-wrap">
+      <label class="field-label">Email</label>
+      <p class="field-error" *ngIf="emailError">{{ emailError }}</p>
+      <div class="input-row">
+        <input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="hello@example.com"
+          autocomplete="on"
+          (keydown.enter)="login()" />
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="field-wrap">
+      <label class="field-label">Password</label>
+      <p class="field-error" *ngIf="passwordError">{{ passwordError }}</p>
+      <div class="input-row">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          autocomplete="off"
+          (keydown.enter)="login()" />
+        <button class="eye-btn" type="button" (click)="togglePassword()" aria-label="Toggle password">
+          <i class="ti" [class.ti-eye]="!showPassword" [class.ti-eye-off]="showPassword"></i>
+        </button>
+      </div>
+
+      <div class="options-row">
+        <div class="remember-me">
+          <input type="checkbox" id="rememberMe" [(ngModel)]="rememberMe" />
+          <label for="rememberMe">Remember me</label>
+        </div>
+        <p class="forgot-pwd">
+          <a routerLink="/forgot-password">Forgot password?</a>
+        </p>
+      </div>
+    </div>
+
+    <button class="submit-btn" (click)="login()">Sign in</button>
+
+    <p class="signup-row">
+      Don't have an account? <a routerLink="/signup">Sign Up</a>
+    </p>
+  </div>
+
+</div>

@@ -1,0 +1,159 @@
+<div class="dashboard-wrap">
+
+  <!-- Header -->
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <p class="welcome-sub">Weather Forecast 🌤️</p>
+      <h1 class="welcome-title">Prediction by Month</h1>
+    </div>
+    <div class="dash-header-right">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search..." [(ngModel)]="searchQuery" />
+      </div>
+      <button class="notif-btn">
+        <i class="bi bi-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="avatar">AD</div>
+    </div>
+  </div>
+
+ 
+
+  <!-- Month Selector Card -->
+  <div class="region-selector-card">
+    <div class="region-selector-left">
+      <div class="region-select-wrap">
+        <select class="region-select-top" [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+          <option *ngFor="let m of months" [value]="m.label">{{ m.label }}</option>
+        </select>
+      </div>
+      <div class="today-info">
+        <p class="today-label">Selected Month</p>
+        <p class="today-location"><i class="bi bi-calendar2-month-fill"></i> {{ selectedMonth }}, Tanzania</p>
+        <div class="today-temp-row">
+          <i class="bi today-icon" [ngClass]="conditionIcon"></i>
+          <span class="today-temp">{{ monthWeather.temp }}°C</span>
+        </div>
+        <p class="today-condition">{{ monthWeather.condition }}</p>
+        <p class="today-feels">Feels like {{ monthWeather.feelsLike }}°C
+          <i class="bi bi-arrow-clockwise refresh-icon" (click)="refreshMonth()" title="Refresh"></i>
+        </p>
+      </div>
+    </div>
+
+    <div class="region-selector-right">
+      <p class="highlight-heading">Month's Highlight</p>
+      <div class="highlight-cards">
+        <div class="highlight-card orange">
+          <p class="hl-label">Wind Status</p>
+          <div class="hl-icon-row"><i class="bi bi-wind"></i></div>
+          <p class="hl-value">{{ monthWeather.wind }} km/h</p>
+          <p class="hl-sub">{{ monthWeather.windDir }}</p>
+        </div>
+        <div class="highlight-card orange">
+          <p class="hl-label">Pressure</p>
+          <div class="hl-icon-row"><i class="bi bi-speedometer2"></i></div>
+          <p class="hl-value">{{ monthWeather.pressure }} hPa</p>
+          <p class="hl-sub">Normal</p>
+        </div>
+        <div class="highlight-card green">
+          <p class="hl-label">Precipitation</p>
+          <div class="hl-icon-row"><i class="bi bi-droplet-fill"></i></div>
+          <p class="hl-value">{{ monthWeather.precipitation }} mm</p>
+          <p class="hl-sub">{{ monthWeather.precipitation === 0 ? 'No Rain' : 'Light Rain' }}</p>
+        </div>
+        <div class="highlight-card green">
+          <p class="hl-label">Humidity</p>
+          <div class="hl-icon-row"><i class="bi bi-moisture"></i></div>
+          <p class="hl-value">{{ monthWeather.humidity }}%</p>
+          <p class="hl-sub">Normal</p>
+        </div>
+        <div class="highlight-card orange">
+          <p class="hl-label">Cloud</p>
+          <div class="hl-icon-row"><i class="bi bi-cloud-fill"></i></div>
+          <p class="hl-value">{{ monthWeather.cloud }}%</p>
+          <p class="hl-sub">{{ monthWeather.cloud < 20 ? 'Clear' : monthWeather.cloud < 60 ? 'Partly Cloudy' : 'Cloudy' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Predicted Weather Section -->
+  <div class="predicted-section">
+    <div class="predicted-header-row">
+      <h2 class="section-title">Predicted Weather</h2>
+    </div>
+
+    <div class="note-banner">
+      <i class="bi bi-info-circle-fill"></i>
+      <span><strong>Note:</strong> The prediction model was trained on data from 2012–2015. Results for months outside this range may be less accurate.</span>
+    </div>
+
+    <div class="predicted-content">
+
+      <!-- Left: Year + Temp Gauge -->
+      <div class="predicted-left">
+        <div class="year-selector-row">
+          <i class="bi bi-calendar3"></i>
+          <label>Year</label>
+          <select class="year-select" [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+          </select>
+        </div>
+
+        <div class="gauge-wrap">
+          <svg class="gauge-svg" viewBox="0 0 160 100">
+            <path
+              d="M 20 90 A 70 70 0 0 1 140 90"
+              fill="none"
+              stroke="#e5e7eb"
+              stroke-width="12"
+              stroke-linecap="round"
+            />
+            <path
+              d="M 20 90 A 70 70 0 0 1 140 90"
+              fill="none"
+              [attr.stroke]="gaugeColor"
+              stroke-width="12"
+              stroke-linecap="round"
+              [attr.stroke-dasharray]="gaugeDash"
+              [attr.stroke-dashoffset]="gaugeOffset"
+            />
+          </svg>
+          <div class="gauge-label">
+            <p class="gauge-temp">{{ prediction.temp }}°C</p>
+          </div>
+        </div>
+
+        <p class="gauge-caption"><i class="bi bi-thermometer-half"></i> Temperature</p>
+      </div>
+
+      <!-- Right: Precipitation + Wind -->
+      <div class="predicted-right">
+        <div class="pred-metric-card">
+          <div class="pred-metric-bar-wrap">
+            <div class="pred-metric-bar">
+              <div class="pred-bar-fill blue" [style.height.%]="precipPercent"></div>
+            </div>
+          </div>
+          <p class="pred-metric-value">{{ prediction.precipitation }}mm</p>
+          <p class="pred-metric-label"><i class="bi bi-cloud-rain-fill text-blue"></i> Precipitation</p>
+        </div>
+
+        <div class="pred-metric-card">
+          <div class="pred-metric-bar-wrap">
+            <div class="pred-metric-bar">
+              <div class="pred-bar-fill teal" [style.height.%]="windPercent"></div>
+            </div>
+          </div>
+          <p class="pred-metric-value">{{ prediction.wind }}km/h</p>
+          <p class="pred-metric-label"><i class="bi bi-wind text-teal"></i> Wind</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

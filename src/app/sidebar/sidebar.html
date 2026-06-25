@@ -1,0 +1,65 @@
+<aside class="sidebar" [class.sidebar-collapsed]="sidebarCollapsed">
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+  </div>
+  <hr style="color:#ffffff">
+
+  <nav>
+    <ul class="nav-list">
+      <li *ngFor="let item of navItems">
+
+        <!-- Dropdown item -->
+        <div *ngIf="item.children; else plainItem"
+          class="nav-item"
+          [ngClass]="item.className"
+          [class.open]="item.open"
+          (click)="toggleDropdown(item, $event)">
+          <span class="material-icons nav-icon">{{ item.icon }}</span>
+          <span class="nav-label">{{ item.label }}</span>
+          <span class="material-icons dropdown-arrow">
+            {{ item.open ? 'expand_less' : 'expand_more' }}
+          </span>
+        </div>
+
+        <ul class="dropdown-list" [class.dropdown-open]="item.open">
+          <li *ngFor="let child of item.children"
+            class="dropdown-item"
+            [routerLink]="child.route"
+            routerLinkActive="dropdown-item-active"
+            [ngClass]="child.className"
+            (click)="$event.stopPropagation()">
+            <span class="material-icons dropdown-icon">{{ child.icon }}</span>
+            <span class="dropdown-label">{{ child.label }}</span>
+          </li>
+        </ul>
+
+        <!-- Plain item -->
+        <ng-template #plainItem>
+          <div class="nav-item"
+            [ngClass]="item.className"
+            [routerLink]="item.route"
+            routerLinkActive="nav-item-active"
+            [routerLinkActiveOptions]="{ exact: item.route === '/' }">
+            <span class="material-icons nav-icon">{{ item.icon }}</span>
+            <span class="nav-label">{{ item.label }}</span>
+          </div>
+        </ng-template>
+
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="avatar-row">
+
+      <div class="avatar">{{ user.initials }}</div>
+
+      <div class="user-info">
+        <p class="user-name">{{ user.name }}</p>
+        <p class="user-role">{{ user.email }}</p>
+      </div>
+
+      <span class="material-icons logout-icon" (click)="logout()">logout</span>
+    </div>
+  </div>
+</aside>

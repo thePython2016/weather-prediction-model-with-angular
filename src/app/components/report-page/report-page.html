@@ -1,0 +1,264 @@
+<div class="dashboard-wrap">
+
+  <!-- Header -->
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <p class="welcome-sub">Weather Forecast 🌤️</p>
+      <h1 class="welcome-title">Prediction by Region</h1>
+    </div>
+    <div class="dash-header-right">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search..." />
+      </div>
+      <button class="notif-btn">
+        <i class="bi bi-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="avatar">AD</div>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stat-grid">
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-label">TOTAL REGIONS</span>
+        <div class="stat-icon violet"><i class="bi bi-geo-alt"></i></div>
+      </div>
+      <p class="stat-value">31</p>
+      <p class="stat-change positive"><i class="bi bi-check-circle"></i> All regions covered</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-label">AVG TEMPERATURE</span>
+        <div class="stat-icon orange"><i class="bi bi-thermometer-half"></i></div>
+      </div>
+      <p class="stat-value">27°C</p>
+      <p class="stat-change positive"><i class="bi bi-graph-up-arrow"></i> +2°C above normal</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-label">RAINY REGIONS</span>
+        <div class="stat-icon blue"><i class="bi bi-cloud-rain"></i></div>
+      </div>
+      <p class="stat-value">14</p>
+      <p class="stat-change info"><i class="bi bi-droplet"></i> 45% of all regions</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span class="stat-label">AVG WIND SPEED</span>
+        <div class="stat-icon teal"><i class="bi bi-wind"></i></div>
+      </div>
+      <p class="stat-value">18 km/h</p>
+      <p class="stat-change neutral"><i class="bi bi-dash"></i> Normal range</p>
+    </div>
+
+  </div>
+
+  <!-- Main Content Row -->
+  <div class="content-row">
+
+    <!-- Region Table -->
+    <div class="table-card">
+      <div class="table-card-header">
+        <h2 class="section-title">Regional Predictions</h2>
+        <div class="table-actions">
+          <select class="filter-select">
+            <option>All Conditions</option>
+            <option>Sunny</option>
+            <option>Rainy</option>
+            <option>Cloudy</option>
+            <option>Stormy</option>
+          </select>
+          <button class="export-btn">Export</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="region-table">
+          <thead>
+            <tr>
+              <th>REGION</th>
+              <th>CONDITION</th>
+              <th>TEMP MAX</th>
+              <th>TEMP MIN</th>
+              <th>PRECIPITATION</th>
+              <th>WIND</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="region-name">Dar es Salaam</td>
+              <td><span class="cond sunny"><i class="bi bi-sun"></i> Sunny</span></td>
+              <td>34°C</td><td>24°C</td><td>2.1 mm</td><td>22 km/h</td>
+              <td><span class="badge hot">Hot</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Mwanza</td>
+              <td><span class="cond rainy"><i class="bi bi-cloud-rain"></i> Rainy</span></td>
+              <td>28°C</td><td>18°C</td><td>12.4 mm</td><td>15 km/h</td>
+              <td><span class="badge wet">Wet</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Arusha</td>
+              <td><span class="cond cloudy"><i class="bi bi-cloud"></i> Cloudy</span></td>
+              <td>22°C</td><td>14°C</td><td>5.0 mm</td><td>18 km/h</td>
+              <td><span class="badge mild">Mild</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Dodoma</td>
+              <td><span class="cond sunny"><i class="bi bi-sun"></i> Sunny</span></td>
+              <td>32°C</td><td>20°C</td><td>0.5 mm</td><td>20 km/h</td>
+              <td><span class="badge hot">Hot</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Mbeya</td>
+              <td><span class="cond rainy"><i class="bi bi-cloud-rain"></i> Rainy</span></td>
+              <td>24°C</td><td>15°C</td><td>18.2 mm</td><td>12 km/h</td>
+              <td><span class="badge wet">Wet</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Tanga</td>
+              <td><span class="cond stormy"><i class="bi bi-cloud-lightning-rain"></i> Stormy</span></td>
+              <td>29°C</td><td>21°C</td><td>25.6 mm</td><td>35 km/h</td>
+              <td><span class="badge storm">Storm</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Morogoro</td>
+              <td><span class="cond cloudy"><i class="bi bi-cloud"></i> Cloudy</span></td>
+              <td>26°C</td><td>17°C</td><td>7.3 mm</td><td>14 km/h</td>
+              <td><span class="badge mild">Mild</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Zanzibar</td>
+              <td><span class="cond sunny"><i class="bi bi-sun"></i> Sunny</span></td>
+              <td>31°C</td><td>23°C</td><td>1.2 mm</td><td>19 km/h</td>
+              <td><span class="badge hot">Hot</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Tabora</td>
+              <td><span class="cond sunny"><i class="bi bi-sun"></i> Sunny</span></td>
+              <td>33°C</td><td>21°C</td><td>0.8 mm</td><td>17 km/h</td>
+              <td><span class="badge hot">Hot</span></td>
+            </tr>
+            <tr>
+              <td class="region-name">Kigoma</td>
+              <td><span class="cond rainy"><i class="bi bi-cloud-rain"></i> Rainy</span></td>
+              <td>27°C</td><td>19°C</td><td>14.9 mm</td><td>11 km/h</td>
+              <td><span class="badge wet">Wet</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+
+      <!-- Region Selector -->
+      <div class="panel-card">
+        <h2 class="section-title">Select Region</h2>
+        <p class="panel-sub">View detailed forecast</p>
+        <select class="region-select">
+          <option>Dar es Salaam</option>
+          <option>Mwanza</option>
+          <option>Arusha</option>
+          <option>Dodoma</option>
+          <option>Mbeya</option>
+          <option>Tanga</option>
+          <option>Morogoro</option>
+          <option>Zanzibar</option>
+          <option>Tabora</option>
+          <option>Kigoma</option>
+          <option>Shinyanga</option>
+          <option>Kagera</option>
+          <option>Iringa</option>
+          <option>Mara</option>
+          <option>Mtwara</option>
+          <option>Ruvuma</option>
+          <option>Lindi</option>
+          <option>Singida</option>
+          <option>Rukwa</option>
+          <option>Katavi</option>
+          <option>Njombe</option>
+          <option>Simiyu</option>
+          <option>Geita</option>
+          <option>Songwe</option>
+          <option>Pwani</option>
+        </select>
+        <button class="forecast-btn">Get Forecast</button>
+      </div>
+
+      <!-- Condition Summary -->
+      <div class="panel-card">
+        <h2 class="section-title">Condition Summary</h2>
+        <div class="summary-list">
+          <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-sun text-orange"></i> Sunny</span>
+            <div class="summary-bar-wrap">
+              <div class="bar-track"><div class="bar-fill orange" style="width:45%"></div></div>
+              <span class="bar-pct">45%</span>
+            </div>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-cloud-rain text-blue"></i> Rainy</span>
+            <div class="summary-bar-wrap">
+              <div class="bar-track"><div class="bar-fill blue" style="width:30%"></div></div>
+              <span class="bar-pct">30%</span>
+            </div>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-cloud text-gray"></i> Cloudy</span>
+            <div class="summary-bar-wrap">
+              <div class="bar-track"><div class="bar-fill gray" style="width:16%"></div></div>
+              <span class="bar-pct">16%</span>
+            </div>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label"><i class="bi bi-cloud-lightning-rain text-purple"></i> Stormy</span>
+            <div class="summary-bar-wrap">
+              <div class="bar-track"><div class="bar-fill purple" style="width:9%"></div></div>
+              <span class="bar-pct">9%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today Highlight -->
+      <div class="panel-card dark">
+        <p class="highlight-sub">Today's Highlight</p>
+        <h2 class="highlight-title">Dar es Salaam</h2>
+        <div class="highlight-temp-row">
+          <i class="bi bi-sun highlight-sun"></i>
+          <p class="highlight-temp">34°C</p>
+        </div>
+        <div class="highlight-grid">
+          <div class="highlight-item">
+            <p class="hi-label">Humidity</p>
+            <p class="hi-val">72%</p>
+          </div>
+          <div class="highlight-item">
+            <p class="hi-label">Wind</p>
+            <p class="hi-val">22 km/h</p>
+          </div>
+          <div class="highlight-item">
+            <p class="hi-label">Precipitation</p>
+            <p class="hi-val">2.1 mm</p>
+          </div>
+          <div class="highlight-item">
+            <p class="hi-label">Condition</p>
+            <p class="hi-val">Sunny ☀️</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

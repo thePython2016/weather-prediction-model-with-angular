@@ -1,0 +1,126 @@
+<div class="page-wrapper">
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <div class="page-header">
+    <div>
+      <p class="page-eyebrow">Analytics</p>
+      <h1 class="page-title">Charts</h1>
+    </div>
+    <div class="header-actions">
+      <button class="btn-export">
+        <span class="material-icons">download</span>
+        Export
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Bar chart — temperature by region ──────────────── -->
+  <div class="chart-card chart-card-wide">
+    <div class="chart-header">
+      <h2 class="chart-title">Current Temperature by Region</h2>
+      <div class="legend">
+        <span class="legend-dot purple"></span> Temp (°C)
+      </div>
+    </div>
+    <div class="bar-chart-scroll" *ngIf="!chartLoading"><div class="bar-chart">
+      <div class="bar-col" *ngFor="let bar of chartBars; let i = index">
+        <span class="bar-value">{{ chartValues[i] }}°</span>
+        <div
+          class="bar"
+          [style.height.%]="bar"
+          [class.bar-peak]="bar === 100"
+          [title]="regions[i] + ': ' + chartValues[i] + '°C'">
+        </div>
+        <span class="bar-label">{{ chartLabels[i] }}</span>
+      </div></div>
+    </div>
+    <div class="chart-loading" *ngIf="chartLoading">
+      <span class="spinner"></span>
+      <span class="chart-loading-text">Loading region data…</span>
+    </div>
+  </div>
+
+  <!-- ── Charts Grid ────────────────────────────────────── -->
+  <div class="charts-grid">
+
+    <!-- Line chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">Predicted Temperature by Year</h2>
+        <div class="legend">
+          <span class="legend-dot purple"></span> Temp (°C)
+        </div>
+      </div>
+      <div *ngIf="!lineLoading">
+        <svg viewBox="0 0 300 160" class="line-svg" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#6C63FF" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#6C63FF" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Fill area -->
+          <polygon
+            [attr.points]="linePolyline + ' 300,160 0,160'"
+            fill="url(#grad)"/>
+          <!-- Line -->
+          <polyline
+            [attr.points]="linePolyline"
+            fill="none" stroke="#6C63FF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Dots -->
+          <circle
+            *ngFor="let p of linePoints; let i = index"
+            class="line-dot"
+            [attr.cx]="p.x" [attr.cy]="p.y"
+            r="5">
+            <title>{{ lineLabels[i] }}: {{ lineValues[i] }}°C</title>
+          </circle>
+        </svg>
+        <div class="line-x-axis">
+          <span class="line-x-label" *ngFor="let label of lineLabels">{{ label }}</span>
+        </div>
+      </div>
+      <div class="chart-loading" *ngIf="lineLoading">
+        <span class="spinner"></span>
+        <span class="chart-loading-text">Loading year predictions…</span>
+      </div>
+    </div>
+
+    <!-- Donut chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <h2 class="chart-title">Weather Distribution</h2>
+      </div>
+      <div class="donut-container" *ngIf="!donutLoading">
+        <svg viewBox="0 0 120 120" class="donut-svg">
+          <!-- Track -->
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#EEEDFE" stroke-width="18"/>
+          <!-- One segment per condition bucket, sized + positioned from real region data -->
+          <circle
+            *ngFor="let d of donutData; let i = index"
+            cx="60" cy="60" r="50" fill="none"
+            [attr.stroke]="d.color"
+            stroke-width="18"
+            [attr.stroke-dasharray]="donutDashArray(d.pct)"
+            stroke-linecap="butt"
+            [attr.transform]="'rotate(' + donutRotation(i) + ' 60 60)'"/>
+          <!-- Centre label -->
+          <text x="60" y="56" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1830">{{ regions.length }}</text>
+          <text x="60" y="68" text-anchor="middle" font-size="8"  fill="#A09DBF">Regions</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="dl-item" *ngFor="let d of donutData">
+            <span class="dl-dot" [style.background]="d.color"></span>
+            <span class="dl-label">{{ d.label }}</span>
+            <span class="dl-pct">{{ d.pct }}%</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-loading" *ngIf="donutLoading">
+        <span class="spinner"></span>
+        <span class="chart-loading-text">Loading conditions…</span>
+      </div>
+    </div>
+
+  </div>
+</div>

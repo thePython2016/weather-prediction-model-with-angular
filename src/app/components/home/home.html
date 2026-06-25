@@ -1,0 +1,143 @@
+
+<div class="content">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div>
+        <p class="topbar-eyebrow">Weather Forecast 🌤️</p>
+        <h1 class="topbar-title">{{ selectedRegion }} — Overview</h1>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box">
+        <span class="material-icons search-icon">search</span>
+        <input type="text" placeholder="Search…" />
+      </div>
+      <button class="icon-btn" aria-label="Notifications">
+        <span class="material-icons">notifications_none</span>
+        <span class="badge"></span>
+      </button>
+      <div class="avatar sm">AD</div>
+    </div>
+  </header>
+
+  <!-- Region selector -->
+  <div class="region-bar">
+    <span class="material-icons region-icon">location_on</span>
+    <label class="region-label">Region</label>
+    <select class="region-select" [(ngModel)]="selectedRegion" (change)="onRegionChange()">
+      <option *ngFor="let r of regions" [value]="r">{{ r }}</option>
+    </select>
+  </div>
+
+  <!-- Stat cards: temp / humidity / wind / pressure -->
+  <section class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <div class="stat-top">
+        <p class="stat-label">{{ stat.title }}</p>
+        <span class="stat-icon material-icons">{{ stat.icon }}</span>
+      </div>
+      <p class="stat-value">{{ stat.value }}</p>
+      <p class="stat-growth" [class.positive]="stat.positive" [class.negative]="!stat.positive">
+        <span class="material-icons trend-icon">{{ stat.positive ? 'trending_up' : 'trending_down' }}</span>
+        {{ stat.growth }}
+      </p>
+    </div>
+  </section>
+
+  <section class="middle-row">
+
+    <!-- Bar chart — predicted temp per year -->
+    <div class="chart-card">
+      <div class="card-header">
+        <h2 class="card-title">Current Temperature by Region</h2>
+      </div>
+      <div class="bar-chart-scroll"><div class="bar-chart">
+        <div class="bar-col" *ngFor="let bar of chartBars; let i = index">
+          <span class="bar-value">{{ chartValues[i] }}°</span>
+          <div
+            class="bar"
+            [style.height.%]="bar"
+            [class.bar-peak]="bar === 100"
+            [title]="chartMonths[i] + ': ' + chartValues[i] + '°C'">
+          </div>
+          <span class="bar-label">{{ chartMonths[i] }}</span>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Donut — cloud cover -->
+    <div class="target-card">
+      <h2 class="card-title">Cloud Cover</h2>
+      <p class="target-subtitle">Current Reading</p>
+      <div class="donut-wrapper">
+        <svg viewBox="0 0 120 120" class="donut-svg">
+          <circle class="donut-bg" cx="60" cy="60" r="54" fill="none" stroke-width="10"/>
+          <circle class="donut-progress" cx="60" cy="60" r="54" fill="none" stroke-width="10"
+            [attr.stroke-dasharray]="circumference"
+            [attr.stroke-dashoffset]="strokeDashoffset"
+            stroke-linecap="round"
+            transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="donut-label">
+          <p class="donut-pct">{{ targetPercent }}%</p>
+          <p class="donut-sub">cloud</p>
+        </div>
+      </div>
+      <div class="target-stats">
+        <div class="target-stat">
+          <p class="ts-value">{{ targetSales }}°C</p>
+          <p class="ts-label">Feels like</p>
+        </div>
+        <div class="target-divider"></div>
+        <div class="target-stat">
+          <p class="ts-value">{{ targetGoal }}%</p>
+          <p class="ts-label">Max scale</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="bottom-row">
+
+    <!-- Weather highlights -->
+    <div class="products-card">
+      <div class="card-header">
+        <h2 class="card-title">Today's Highlights</h2>
+        <span class="view-all">{{ selectedRegion }}</span>
+      </div>
+      <div class="product-grid">
+        <div class="product-card" *ngFor="let p of products">
+          <div class="product-img-wrap">
+            <img [src]="p.image" [alt]="p.name" />
+          </div>
+          <p class="product-name">{{ p.name }}</p>
+          <p class="product-price">{{ p.price }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year forecasts -->
+    <div class="offers-card">
+      <div class="card-header">
+        <h2 class="card-title">Year Forecasts</h2>
+      
+      </div>
+      <div class="offer-list">
+        <div class="offer-item" *ngFor="let o of offers" [class]="'offer-item offer-' + o.color">
+          <div class="offer-badge">
+            <span class="material-icons offer-icon">wb_sunny</span>
+          </div>
+          <div class="offer-text">
+            <p class="offer-label">{{ o.label }}</p>
+            <p class="offer-desc">{{ o.desc }}</p>
+          </div>
+          <span class="material-icons offer-arrow">arrow_forward_ios</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>

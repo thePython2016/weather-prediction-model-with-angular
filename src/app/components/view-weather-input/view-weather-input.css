@@ -1,0 +1,180 @@
+/* ── Wrap ────────────────────────────────────────────── */
+.dashboard-wrap {
+  background: #f0eff8;
+  padding: 24px;
+  font-family: 'Inter', sans-serif;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Header ──────────────────────────────────────────── */
+.dash-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.welcome-sub  { font-size: 13px; color: #9ca3af; margin: 0 0 2px; }
+.welcome-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin: 0; }
+.dash-header-right { display: flex; align-items: center; gap: 12px; }
+.search-box {
+  display: flex; align-items: center; gap: 8px;
+  background: #fff; border-radius: 12px; padding: 8px 12px; min-width: 200px;
+}
+.search-box i { color: #9ca3af; font-size: 13px; flex-shrink: 0; }
+.search-box input { border: none; outline: none; background: transparent; font-size: 13px; color: #4b5563; width: 100%; }
+.notif-btn {
+  position: relative; background: #fff; border: none; border-radius: 12px;
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  color: #6b7280; font-size: 15px; cursor: pointer; flex-shrink: 0;
+}
+.notif-dot {
+  position: absolute; top: 8px; right: 8px;
+  width: 7px; height: 7px; background: #ef4444; border-radius: 50%; border: 2px solid #f0eff8;
+}
+.avatar {
+  background: #1a1a2e; color: #fff; border-radius: 12px;
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.05em; flex-shrink: 0;
+}
+
+/* ── Stat Cards ──────────────────────────────────────── */
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;
+}
+.stat-card { background: #fff; border-radius: 16px; padding: 20px; min-width: 0; }
+.stat-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.stat-label { font-size: 10px; font-weight: 600; color: #9ca3af; letter-spacing: 0.06em; }
+.stat-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;
+}
+.stat-icon.violet { background: #ede9fe; color: #7c3aed; }
+.stat-icon.orange { background: #ffedd5; color: #f97316; }
+.stat-icon.blue   { background: #dbeafe; color: #3b82f6; }
+.stat-icon.teal   { background: #ccfbf1; color: #14b8a6; }
+.stat-value { font-size: 22px; font-weight: 700; color: #1a1a2e; margin: 0 0 4px; }
+.stat-change { font-size: 12px; display: flex; align-items: center; gap: 4px; margin: 0; }
+.stat-change.positive { color: #10b981; }
+.stat-change.info     { color: #60a5fa; }
+.stat-change.neutral  { color: #9ca3af; }
+
+/* ── Content Row ─────────────────────────────────────── */
+.content-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* ── Table Card ──────────────────────────────────────── */
+.table-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 0;
+}
+.table-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; flex-wrap: wrap; gap: 12px;
+}
+.section-title { font-size: 15px; font-weight: 700; color: #1a1a2e; margin: 0; }
+.table-wrap { overflow-x: auto; width: 100%; }
+
+/* ── Search Form ─────────────────────────────────────── */
+.search-form { display: flex; align-items: center; gap: 8px; }
+
+.search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-icon {
+  position: absolute;
+  left: 11px;
+  color: #9ca3af;
+  font-size: 13px;
+  pointer-events: none;
+}
+.search-input {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 36px 8px 32px;
+  font-size: 13px;
+  color: #4b5563;
+  background: #f9fafb;
+  outline: none;
+  width: 240px;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.search-input:focus {
+  border-color: #7c3aed;
+  background: #fff;
+}
+.search-input::placeholder { color: #9ca3af; }
+
+.clear-btn {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.clear-btn:hover { color: #4b5563; }
+
+/* ── Material Table overrides ────────────────────────── */
+.weather-table {
+  width: 100%;
+  background: transparent;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+}
+.weather-table .mat-mdc-header-row { background: #f9fafb; }
+.weather-table .mat-mdc-header-cell {
+  font-size: 10px; font-weight: 600; color: #9ca3af;
+  letter-spacing: 0.06em; border-bottom: 1px solid #f3f4f6;
+  padding: 14px 16px; white-space: normal; line-height: 1.3;
+}
+.weather-table .mat-mdc-cell {
+  color: #6b7280; border-bottom: 1px solid #f9fafb;
+  padding: 11px 16px; font-size: 13px; white-space: nowrap;
+}
+.table-row:nth-child(odd) .mat-mdc-cell  { background: #f9fafb; }
+.table-row:nth-child(even) .mat-mdc-cell { background: #fff; }
+.table-row:hover .mat-mdc-cell { background: #eef2ff; }
+.table-row:last-child .mat-mdc-cell { border-bottom: none; }
+.weather-cell { color: #c0392b; font-weight: 500; }
+.no-data-cell { text-align: center; padding: 32px 16px !important; color: #9ca3af; font-size: 13px; }
+
+mat-paginator { background: transparent; font-size: 12px; border-top: 1px solid #f3f4f6; margin-top: 4px; }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 1100px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px)  {
+  .table-card-header { flex-direction: column; align-items: flex-start; }
+  .search-input { width: 100%; }
+  .search-form { width: 100%; }
+  .search-input-wrap { width: 100%; }
+}
+@media (max-width: 600px)  { .stat-grid { grid-template-columns: repeat(2, 1fr); } .search-box { min-width: 140px; } }
+@media (max-width: 420px)  { .stat-grid { grid-template-columns: 1fr; } }
+
+/* Add this to your existing view-weather-input.css — only the spin keyframes are new */
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

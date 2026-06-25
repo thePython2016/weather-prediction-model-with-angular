@@ -1,0 +1,134 @@
+<div class="dashboard-wrap">
+
+  <!-- Header -->
+  <div class="dash-header">
+    <div class="dash-header-left">
+      <p class="welcome-sub">Weather Forecast 🌤️</p>
+      <h1 class="welcome-title">Prediction by Region</h1>
+    </div>
+    <div class="dash-header-right">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search region..." [(ngModel)]="searchQuery" />
+      </div>
+      <button class="notif-btn">
+        <i class="bi bi-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="avatar">AD</div>
+    </div>
+  </div>
+
+  <!-- Region Selector Card -->
+  <div class="region-selector-card">
+    <div class="region-selector-left">
+      <div class="region-select-wrap">
+        <select class="region-select-top" [(ngModel)]="selectedRegion" (change)="onRegionChange()">
+          <option *ngFor="let r of regions" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+      <div class="today-info">
+        <p class="today-label">Today</p>
+        <span class="today-temp">{{ selectedRegion }} — {{ todayWeather?.temp_c }}°C</span>
+        <p class="today-condition">{{ todayWeather?.condition }}</p>
+        <p class="today-feels">
+          Feels like {{ todayWeather?.feelslike_c }}°C
+          <i class="bi bi-arrow-clockwise refresh-icon" (click)="refreshToday()" title="Refresh"></i>
+        </p>
+      </div>
+    </div>
+
+    <div class="region-selector-right">
+      <p class="highlight-heading">Today's Highlight</p>
+      <div class="highlight-cards">
+
+        <div class="highlight-card orange">
+          <p class="hl-label">Wind Status</p>
+          <div class="hl-icon-row"><i class="bi bi-wind"></i></div>
+          <p class="hl-value">{{ todayWeather?.wind_kph }} km/h</p>
+          <p class="hl-sub">{{ todayWeather?.wind_dir }}</p>
+        </div>
+
+        <div class="highlight-card orange">
+          <p class="hl-label">Pressure</p>
+          <div class="hl-icon-row"><i class="bi bi-speedometer2"></i></div>
+          <p class="hl-value">{{ todayWeather?.pressure_mb }} mb</p>
+          <p class="hl-sub">Normal</p>
+        </div>
+
+        <div class="highlight-card green">
+          <p class="hl-label">Precipitation</p>
+          <div class="hl-icon-row"><i class="bi bi-droplet-fill"></i></div>
+          <p class="hl-value">{{ todayWeather?.prec_mm }} mm</p>
+          <p class="hl-sub">{{ todayWeather?.prec_mm === 0 ? 'No Rain' : 'Light Rain' }}</p>
+        </div>
+
+        <div class="highlight-card green">
+          <p class="hl-label">Humidity</p>
+          <div class="hl-icon-row"><i class="bi bi-moisture"></i></div>
+          <p class="hl-value">{{ todayWeather?.humidity }}%</p>
+          <p class="hl-sub">Normal</p>
+        </div>
+
+        <div class="highlight-card orange">
+          <p class="hl-label">Cloud</p>
+          <div class="hl-icon-row"><i class="bi bi-cloud-fill"></i></div>
+          <p class="hl-value">{{ todayWeather?.cloud }}%</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Predicted Weather Section -->
+  <div class="predicted-section">
+    <div class="predicted-header-row">
+      <h2 class="section-title">Predicted Weather</h2>
+    </div>
+<div class="prediction-notice">
+    <strong>Note:</strong> The prediction model was trained on data from 2012–2015. Results for days outside this range may be less accurate.
+  </div>
+
+    <div class="predicted-content">
+
+      <!-- Left: Year + Temp -->
+      <div class="predicted-left">
+        <div class="year-selector-row">
+          <i class="bi bi-calendar3"></i>
+          <label>Year</label>
+          <select class="year-select" [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+          </select>
+        </div>
+        <p class="gauge-caption"><i class="bi bi-thermometer-half"></i> Temperature Max</p>
+        <p class="pred-temp-value">{{ prediction?.Temp }}°C</p>
+      </div>
+
+      <!-- Right: Precipitation + Wind -->
+      <div class="predicted-right">
+
+        <div class="pred-metric-card">
+          <div class="pred-metric-bar-wrap">
+            <div class="pred-metric-bar"></div>
+          </div>
+          <p class="pred-metric-value">{{ prediction?.Prec }} mm</p>
+          <p class="pred-metric-label">
+            <i class="bi bi-cloud-rain-fill text-blue"></i> Precipitation
+          </p>
+        </div>
+
+        <div class="pred-metric-card">
+          <div class="pred-metric-bar-wrap">
+            <div class="pred-metric-bar"></div>
+          </div>
+          <p class="pred-metric-value">{{ prediction?.Wind }} km/h</p>
+          <p class="pred-metric-label">
+            <i class="bi bi-wind text-teal"></i> Wind
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "weather-project": {
+    "pro": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -55,10 +55,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "weather-project:build:production"
+              "buildTarget": "pro:build:production"
             },
             "development": {
-              "buildTarget": "weather-project:build:development"
+              "buildTarget": "pro:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,18 +1,21 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth';
 
 export const authGuard: CanActivateFn = async () => {
   const auth = inject(AuthService);
+  const router = inject(Router);
 
   const valid = await auth.verifyToken();
 
+  document.body.style.removeProperty('display'); // ← always restore body
+
   if (!valid) {
-    auth.handleUnauthorized();
+    auth.clearSession();
+    router.navigate(['/signin']);
     return false;
   }
 
-  document.body.style.setProperty('display', 'block', 'important');
   auth.startTokenInterval();
   return true;
 };

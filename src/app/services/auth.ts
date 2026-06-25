@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   handleUnauthorized(): void {
-    document.body.style.setProperty('display', 'none', 'important');
+    // document.body.style.setProperty('display', 'none', 'important');
     this.clearSession();
     this.router.navigate(['/signin']);
   }

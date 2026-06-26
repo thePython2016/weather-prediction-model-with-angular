@@ -1,4 +1,3 @@
-import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -8,7 +7,6 @@ export class AuthService {
   private base = environment.apiUrl;  
   private intervalId: any = null;
   private keepAliveId: any = null;
-
   private readonly TOKEN_KEY = 'session_token';
   private readonly NAME_KEY  = 'fname';
   private readonly EMAIL_KEY = 'email';

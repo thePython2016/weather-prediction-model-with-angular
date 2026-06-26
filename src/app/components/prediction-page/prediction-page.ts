@@ -8,15 +8,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { environment } from '../../../environments/environment';
 
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
 
 type EntryTab = 'manual' | 'upload';
-// Data properties for the weather record, matching the backend API structure
 
-interface WeatherRecord{
+interface WeatherRecord {
   Precipitation: number;
   Temp_Max: number;
   Temp_Min: number;
@@ -24,9 +24,6 @@ interface WeatherRecord{
   Year: number;
   Month: number;
   Day: number;
-
-  
-
 }
 
 @Component({
@@ -47,11 +44,12 @@ interface WeatherRecord{
 })
 export class PredictionPage implements OnInit, AfterViewInit {
 
-  baseurl = 'http://localhost:8000';   
+  baseurl = environment.apiUrl;
   endpoint = '/prediction/';
-  endpointupload='/upload-prediction/'
+  endpointupload = '/upload-prediction/';
 
-predictedValue: string | null = null;  
+  predictedValue: string | null = null;
+  predictionResult: string | null = null;
 
   weatherForm!: FormGroup;
   activeTab: EntryTab = 'manual';
@@ -63,10 +61,7 @@ predictedValue: string | null = null;
 
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {}
 
-  // Weather records from from user form.
-
-
- async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<void> {
     this.weatherForm = this.fb.group({
       precipitation: [null, [Validators.required, Validators.min(0)]],
       wind:          [null, [Validators.required, Validators.min(0)]],
@@ -75,12 +70,8 @@ predictedValue: string | null = null;
       year:          [null, [Validators.required, Validators.min(2000), Validators.max(2100)]],
       month:         [null, Validators.required],
       day:           [null, Validators.required],
-    })
-
-     
-}
-  
-  
+    });
+  }
 
   ngAfterViewInit(): void {}
 
@@ -88,53 +79,39 @@ predictedValue: string | null = null;
     this.activeTab = tab;
   }
 
-  // ── Manual entry ──────────────────────────────────────MANUL ENTRY --VIA API
-async onSubmit():Promise<void>{
+  async onSubmit(): Promise<void> {
     const weatherrecords: WeatherRecord = {
-    Precipitation:this.weatherForm.value.precipitation,
-    Temp_Max:this.weatherForm.value.temp_max,
-    Temp_Min:this.weatherForm.value.temp_min,
-    Wind:this.weatherForm.value.wind,
-    Year:this.weatherForm.value.year,
-    Month:this.weatherForm.value.month,
-    Day:this.weatherForm.value.day
-    }
+      Precipitation: this.weatherForm.value.precipitation,
+      Temp_Max:      this.weatherForm.value.temp_max,
+      Temp_Min:      this.weatherForm.value.temp_min,
+      Wind:          this.weatherForm.value.wind,
+      Year:          this.weatherForm.value.year,
+      Month:         this.weatherForm.value.month,
+      Day:           this.weatherForm.value.day,
+    };
 
-     try{
+    try {
+      const response = await fetch(`${this.baseurl}${this.endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(weatherrecords),
+      });
+      const result = await response.json();
 
-      const response=await fetch(`${this.baseurl}${this.endpoint}`,{
-      method:'POST',
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(weatherrecords)
-    
-      
-      
-    });
-    const result=await response.json()
-
-if (response.ok) {
-  this.predictedValue = result.Predicted;
- 
-
-}
-    else{
-      alert("Data not submitted successfully")
+      if (response.ok) {
+        this.predictedValue = result.Predicted;
+      } else {
+        alert('Data not submitted successfully');
+      }
+    } catch (e: any) {
+      alert(`Error Occured ${e}`);
     }
   }
-  catch (e){
-    alert(`Error Occured ${e}`)
-  }
-}
-  
-    
 
   onReset(): void {
     this.weatherForm.reset();
   }
 
-  // ── Upload ─────────────────────────────────────────────
   onDragOver(event: DragEvent): void {
     event.preventDefault();
     this.isDragOver = true;
@@ -169,30 +146,33 @@ if (response.ok) {
     this.uploadedFile = null;
   }
 
- async onUploadSubmit(): Promise<void> {
-  if (!this.uploadedFile) return;
+  async onUploadSubmit(): Promise<void> {
+    if (!this.uploadedFile) return;
 
-  try {
-    const formData = new FormData();
-    formData.append('file', this.uploadedFile);
+    try {
+      const formData = new FormData();
+      formData.append('file', this.uploadedFile);
 
-    const response = await fetch(`${this.baseurl}${this.endpointupload}`, {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (response.ok) {
-      this.snackBar.open('File uploaded successfully!', 'Close', {
-        duration: 3000,
-        panelClass: ['snack-success'],
+      const response = await fetch(`${this.baseurl}${this.endpointupload}`, {
+        method: 'POST',
+        body: formData,
       });
-      this.removeFile();
-    } else {
-      const err = await response.json();
-      this.snackBar.open(`Upload failed: ${err.detail}`, 'Close', { duration: 3000 });
+
+      if (response.ok) {
+        const result = await response.json();
+        this.predictionResult = result.prediction;
+
+        this.snackBar.open('File uploaded successfully!', 'Close', {
+          duration: 3000,
+          panelClass: ['snack-success'],
+        });
+        this.removeFile();
+      } else {
+        const err = await response.json();
+        this.snackBar.open(`Upload failed: ${err.detail}`, 'Close', { duration: 3000 });
+      }
+    } catch (err: any) {
+      this.snackBar.open(`Error: ${err}`, 'Close', { duration: 3000 });
     }
-  } catch (err) {
-    this.snackBar.open(`Error: ${err}`, 'Close', { duration: 3000 });
   }
-}
 }

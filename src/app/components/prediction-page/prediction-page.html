@@ -167,17 +167,23 @@
         <input #fileInput type="file" accept=".csv,.json" hidden (change)="onFileSelected($event)" />
       </div>
 
-      <div *ngIf="uploadedFile" class="file-preview">
-        <i class="bi bi-file-earmark-check file-preview-icon"></i>
-        <div class="file-preview-info">
-          <p class="file-name">{{ uploadedFile.name }}</p>
-          <p class="file-meta">{{ (uploadedFile.size / 1024).toFixed(1) }} KB</p>
-        </div>
-        <button mat-icon-button type="button" class="file-remove-btn"
-          (click)="removeFile()" aria-label="Remove file">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
+   <div *ngIf="uploadedFile" class="file-preview">
+  <i class="bi bi-file-earmark-check file-preview-icon"></i>
+  <div class="file-preview-info">
+    <p class="file-name">{{ uploadedFile.name }}</p>
+    <p class="file-meta">{{ (uploadedFile.size / 1024).toFixed(1) }} KB</p>
+  </div>
+  <button mat-icon-button type="button" class="file-remove-btn"
+    (click)="removeFile()" aria-label="Remove file">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- Prediction Result -->
+<div *ngIf="predictionResult" class="prediction-result">
+  <i class="bi bi-cloud-sun"></i>
+  <p>Predicted Weather: <strong>{{ predictionResult }}</strong></p>
+</div>
 
       <div class="form-actions">
         <button mat-stroked-button type="button" (click)="removeFile()"

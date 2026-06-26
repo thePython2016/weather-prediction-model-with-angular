@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private base = 'http://localhost:8000';
+  private base = environment.apiUrl;  // ← changed this line only
   private intervalId: any = null;
   private keepAliveId: any = null;
 
@@ -41,7 +42,6 @@ export class AuthService {
   }
 
   handleUnauthorized(): void {
-    // document.body.style.setProperty('display', 'none', 'important');
     this.clearSession();
     this.router.navigate(['/signin']);
   }
@@ -97,17 +97,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Logs the user out:
-   * 1. Optionally informs the backend (best-effort, won't block cleanup if it fails)
-   * 2. Stops both background intervals (token check + keep-alive)
-   * 3. Clears session storage
-   * 4. Redirects to /signin
-   *
-   * If you don't have a POST /logout/ endpoint on the FastAPI side yet,
-   * you can safely delete the try/catch block below and keep only the
-   * contents of the `finally` block.
-   */
   async logout(): Promise<void> {
     const token = this.getToken();
     try {

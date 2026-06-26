@@ -52,14 +52,19 @@
   <div class="sidebar-footer">
     <div class="avatar-row">
 
-      <div class="avatar">{{ user.initials }}</div>
+      <div class="avatar" >{{ user.initials }}</div>
 
       <div class="user-info">
-        <p class="user-name">{{ user.name }}</p>
-        <p class="user-role">{{ user.email }}</p>
+        <p 
+        
+        class="user-name" style="font-size:5px important">{{ user.name }}
+ <span class="material-icons logout-icon" (click)="logout()" style="margin-left:60px;font-size:20px;">logout</span>
+
+        </p>
+        <p class="user-role" >{{ user.email }}</p>
       </div>
 
-      <span class="material-icons logout-icon" (click)="logout()">logout</span>
+     
     </div>
   </div>
 </aside>

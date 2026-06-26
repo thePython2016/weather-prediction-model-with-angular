@@ -16,6 +16,7 @@
   gap: 12px;
   margin-bottom: 28px;
 }
+
 .welcome-sub   { font-size: 13px; color: #9ca3af; margin: 0 0 2px; }
 .welcome-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin: 0; }
 
@@ -87,8 +88,10 @@
   padding: 10px 20px;
   border-radius: 10px;
   border: 1.5px solid #e5e7eb;
+    background: #198754 !important;
   background: #fff;
   color: #6b7280;
+  color:#ffffff;
   font-size: 13px;
   font-weight: 500;
   font-family: 'Inter', sans-serif;
@@ -100,18 +103,19 @@
 
 .mode-btn:hover {
   border-color: #7c3aed;
-  color: #7c3aed;
-  background: #f5f3ff;
+  /* color: #7c3aed; */
+  /* background: #f5f3ff; */
+    background: #198754 !important;
 }
 
 .mode-btn--active {
-  background: #1a1a2e;
+  background: #198754 !important;
   color: #fff;
   border-color: #1a1a2e;
 }
 
 .mode-btn--active:hover {
-  background: #2d2d4e;
+   background: #198754 !important;
   border-color: #2d2d4e;
   color: #fff;
 }
@@ -232,7 +236,7 @@
 
 .btn-submit {
   font-size: 13px !important; font-weight: 600 !important;
-  background: #1a1a2e !important; color: #fff !important;
+  background:#198754 !important; color: #fff !important;
   border-radius: 10px !important; padding: 0 24px !important; height: 40px !important;
 }
 .btn-submit:hover:not([disabled]) { opacity: 0.88; }

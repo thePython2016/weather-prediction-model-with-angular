@@ -235,7 +235,7 @@ nav { flex: 1; padding: 12px 0; }
   border: 1px solid #E7E8EE;
   box-shadow: 0 10px 24px rgba(21, 25, 47, 0.04);
   padding: 22px 22px 18px;
-  min-height: 180px;
+  min-height: 10px !important;
 }
 
 .stat-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
@@ -522,4 +522,14 @@ nav { flex: 1; padding: 12px 0; }
 
 .bar-chart-scroll .bar-col {
   min-width: 28px;
+}
+.region-select{
+  color:black;
+}
+.region-select :hover{
+  color:black;
+  background-color: #0F6E56 !important;
+}
+.stat-value{
+  font-size:18px;
 }

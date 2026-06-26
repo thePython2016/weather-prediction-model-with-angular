@@ -3,20 +3,12 @@
   <!-- Header -->
   <div class="dash-header">
     <div class="dash-header-left">
-      <p class="welcome-sub">Welcome back 🔥</p>
-      <h1 class="welcome-title">Overview</h1>
+     
+      <h1 class="welcome-title"></h1>
     </div>
-    <div class="dash-header-right">
-      <div class="search-box">
-        <i class="bi bi-search"></i>
-        <input type="text" placeholder="Search..." />
-      </div>
-      <button class="notif-btn">
-        <i class="bi bi-bell"></i>
-        <span class="notif-dot"></span>
-      </button>
-      <div class="avatar">AD</div>
-    </div>
+  <div class="success-msg" *ngIf="submitSuccess">
+   Data submitted successfully!
+</div>
   </div>
 
   <hr class="hr" />
@@ -69,12 +61,7 @@
         </div>
 
         <!-- Weather type preview badge -->
-        <div class="wt-preview" *ngIf="weatherForm.get('weather_type')?.value">
-          <i class="bi {{ getWeatherIcon(weatherForm.get('weather_type')?.value) }} wt-preview-icon wt-{{ weatherForm.get('weather_type')?.value }}"></i>
-          <span class="wt-preview-label wt-{{ weatherForm.get('weather_type')?.value }}">
-            {{ getWeatherLabel(weatherForm.get('weather_type')?.value) }} selected
-          </span>
-        </div>
+        
 
         <!-- Row 1: Precipitation & Wind -->
         <div class="form-row cols-2">
@@ -149,10 +136,10 @@
         <!-- Actions -->
         <div class="form-actions">
           <button mat-stroked-button type="button" (click)="onReset()" class="btn-reset">
-            <mat-icon>refresh</mat-icon> Reset
+             Reset
           </button>
           <button mat-flat-button type="submit" [disabled]="weatherForm.invalid" class="btn-submit">
-            <mat-icon>bolt</mat-icon> Submit
+            Submit
           </button>
         </div>
       </form>

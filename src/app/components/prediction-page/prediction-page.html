@@ -3,19 +3,13 @@
   <!-- Header -->
   <div class="dash-header">
     <div class="dash-header-left">
-      <p class="welcome-sub">Welcome back 🔥</p>
-      <h1 class="welcome-title">Overview</h1>
+      <p class="welcome-sub"></p>
+      <h1 class="welcome-title">Weather Prediction</h1>
     </div>
     <div class="dash-header-right">
-      <div class="search-box">
-        <i class="bi bi-search"></i>
-        <input type="text" placeholder="Search..." />
-      </div>
-      <button class="notif-btn">
-        <i class="bi bi-bell"></i>
-        <span class="notif-dot"></span>
-      </button>
-      <div class="avatar">AD</div>
+      
+      
+      
     </div>
   </div>
 
@@ -44,10 +38,10 @@
     <div *ngIf="activeTab === 'manual'">
       <form [formGroup]="weatherForm" (ngSubmit)="onSubmit()" class="weather-form">
 
-        <div class="form-card-header">
-          <h2 class="form-title">Add Weather Record</h2>
-          <p class="form-sub">Enter observed weather data for a region</p>
-        </div>
+    <div class="prediction-notice">
+    <strong>Note:</strong> The prediction model was trained on data from 2012–2015. Results for days outside this range may be less accurate.
+  </div>
+
     <!-- Predicted Result Badge — top of form -->
 <div *ngIf="predictedValue" class="predicted-badge">
   <div class="predicted-badge-left">
@@ -136,10 +130,10 @@
         <!-- Actions -->
         <div class="form-actions">
           <button mat-stroked-button type="button" (click)="onReset()" class="btn-reset">
-            <mat-icon>refresh</mat-icon> Reset
+        Reset
           </button>
           <button mat-flat-button type="submit" [disabled]="weatherForm.invalid" class="btn-submit">
-            <mat-icon>bolt</mat-icon> Predict
+             Predict
           </button>
         </div>
 
@@ -188,11 +182,11 @@
       <div class="form-actions">
         <button mat-stroked-button type="button" (click)="removeFile()"
           class="btn-reset" [disabled]="!uploadedFile">
-          <mat-icon>refresh</mat-icon> Clear
+           Clear
         </button>
         <button mat-flat-button type="button" class="btn-submit"
           [disabled]="!uploadedFile" (click)="onUploadSubmit()">
-          <mat-icon>upload</mat-icon> Upload Records
+           Upload Records
         </button>
       </div>
 

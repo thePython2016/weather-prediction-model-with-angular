@@ -50,7 +50,7 @@ nav { flex: 1; padding: 12px 0; }
 
 /* Active state for plain nav items */
 .nav-item.nav-item-active {
-  background: #198754 !important;
+  /* background: #198754 !important; */
   color: #ffffff !important;
   font-weight: 700;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
@@ -90,7 +90,7 @@ nav { flex: 1; padding: 12px 0; }
   min-height: 38px;
   transition: background 0.15s, color 0.15s;
 }
-.dropdown-item:hover { background: #198754; color: #ffffff; }
+/* .dropdown-item:hover { background: #198754; color: #ffffff; } */
 
 /* Active state for dropdown children */
 .dropdown-item.dropdown-item-active {

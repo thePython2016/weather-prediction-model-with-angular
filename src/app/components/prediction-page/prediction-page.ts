@@ -49,6 +49,8 @@ export class PredictionPage implements OnInit, AfterViewInit {
 
   baseurl = 'http://localhost:8000';   
   endpoint = '/prediction/';
+  endpointupload='/upload-prediction/'
+
 predictedValue: string | null = null;  
 
   weatherForm!: FormGroup;
@@ -167,14 +169,30 @@ if (response.ok) {
     this.uploadedFile = null;
   }
 
-  onUploadSubmit(): void {
-    if (!this.uploadedFile) return;
-    console.log('Uploading file:', this.uploadedFile.name);
-    // TODO: inject WeatherService and call service.uploadFile(this.uploadedFile)
-    this.snackBar.open('File uploaded successfully!', 'Close', {
-      duration: 3000,
-      panelClass: ['snack-success'],
+ async onUploadSubmit(): Promise<void> {
+  if (!this.uploadedFile) return;
+
+  try {
+    const formData = new FormData();
+    formData.append('file', this.uploadedFile);
+
+    const response = await fetch(`${this.baseurl}${this.endpointupload}`, {
+      method: 'POST',
+      body: formData,
     });
-    this.removeFile();
+
+    if (response.ok) {
+      this.snackBar.open('File uploaded successfully!', 'Close', {
+        duration: 3000,
+        panelClass: ['snack-success'],
+      });
+      this.removeFile();
+    } else {
+      const err = await response.json();
+      this.snackBar.open(`Upload failed: ${err.detail}`, 'Close', { duration: 3000 });
+    }
+  } catch (err) {
+    this.snackBar.open(`Error: ${err}`, 'Close', { duration: 3000 });
   }
+}
 }

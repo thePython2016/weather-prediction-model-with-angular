@@ -114,19 +114,25 @@ onSubmit =async()=>{
     body:JSON.stringify(WeatherInput)
 
   })
+  
 
 const result=await response.json()
 if(response.ok){
-  alert("Data submitted successfully!")
+  this.submitSuccess = true;
+  this.submitError = null;
+ 
+  this.ngOnInit();
+  setTimeout(() => this.submitSuccess = false, 3000);
 }
 else{
-  alert(`Error Occured ${result.detail}`)
+  this.submitError = result.detail || 'An error occurred';
+  this.submitSuccess = false;
 }
 }
-  catch(error)
-  {
-    alert(`Error Occured ${error}`)
-  }
+  catch(error){
+  this.submitError = 'Could not connect to server. Please try again.';
+  this.submitSuccess = false;
+}
 }
 
 
@@ -137,10 +143,9 @@ else{
   }
 
 
-  onReset(): void {
-    this.weatherForm.reset();
-  }
-
+onReset(): void {
+  this.ngOnInit();
+}
   onDragOver(event: DragEvent): void {
     event.preventDefault();
     this.isDragOver = true;

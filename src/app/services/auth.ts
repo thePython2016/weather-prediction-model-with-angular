@@ -1,10 +1,11 @@
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private base = environment.apiUrl;  // ← changed this line only
+  private base = environment.apiUrl;  
   private intervalId: any = null;
   private keepAliveId: any = null;
 

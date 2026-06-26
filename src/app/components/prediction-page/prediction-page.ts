@@ -104,7 +104,7 @@ export class PredictionPage implements OnInit, AfterViewInit {
         alert('Data not submitted successfully');
       }
     } catch (e: any) {
-      alert(`Error Occured ${e}`);
+      alert(`Error: ${e.message}`);
     }
   }
 
@@ -161,6 +161,7 @@ export class PredictionPage implements OnInit, AfterViewInit {
       if (response.ok) {
         const result = await response.json();
         this.predictionResult = result.prediction;
+        console.log('Prediction result:', result);
 
         this.snackBar.open('File uploaded successfully!', 'Close', {
           duration: 3000,
@@ -169,10 +170,11 @@ export class PredictionPage implements OnInit, AfterViewInit {
         this.removeFile();
       } else {
         const err = await response.json();
-        this.snackBar.open(`Upload failed: ${err.detail}`, 'Close', { duration: 3000 });
+        console.log('Upload error:', err);
+        this.snackBar.open(`Upload failed: ${err.detail || err.message || JSON.stringify(err)}`, 'Close', { duration: 3000 });
       }
     } catch (err: any) {
-      this.snackBar.open(`Error: ${err}`, 'Close', { duration: 3000 });
+      this.snackBar.open(`Error: ${err.message || JSON.stringify(err)}`, 'Close', { duration: 3000 });
     }
   }
 }

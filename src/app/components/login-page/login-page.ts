@@ -2,7 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../services/auth'; // ← must match exact filename
+import { AuthService } from '../../services/auth';
+import { environment } from '../../../environments/environment';
 
 interface Credentials {
   email: string;
@@ -23,13 +24,11 @@ export class Login implements OnInit {
   password = '';
   rememberMe = false;
   showPassword = false;
-
   emailError = '';
   passwordError = '';
   userError = '';
   serverError = '';
-
-  private base = 'http://127.0.0.1:8000';
+  private base = environment.apiUrl;  
 
   constructor(private router: Router, private auth: AuthService) {
     const saved = localStorage.getItem('savedEmail');
@@ -54,9 +53,7 @@ export class Login implements OnInit {
 
   async login(): Promise<void> {
     this.clearErrors();
-
     let hasError = false;
-
     if (!this.email.trim()) {
       this.emailError = 'Email is required';
       hasError = true;
@@ -65,15 +62,12 @@ export class Login implements OnInit {
       this.passwordError = 'Password is required';
       hasError = true;
     }
-
     if (hasError) return;
-
     const credentials: Credentials = {
       email: this.email.trim(),
       password: this.password,
       remember_me: this.rememberMe
     };
-
     try {
       const response = await fetch(`${this.base}/user-authentication/`, {
         method: 'POST',
@@ -81,17 +75,14 @@ export class Login implements OnInit {
         credentials: 'include',
         body: JSON.stringify(credentials)
       });
-
       const status = await response.json();
-
       if (response.status === 200) {
-        this.auth.setSession(status.token, status.fname, status.email); // ← store token + user
+        this.auth.setSession(status.token, status.fname, status.email);
         this.auth.startTokenInterval();
         this.router.navigate(['/']);
       } else {
         this.userError = status.detail || 'Authentication failed.';
       }
-
     } catch (error: any) {
       this.serverError = `Error: ${error.message}`;
     }
